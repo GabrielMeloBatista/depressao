@@ -6,7 +6,7 @@ int maximoDivisorComum(int x, int y)
 {
   if (y == 0)
   {
-    return y;
+    return x;
   }
   else
   {
@@ -66,7 +66,7 @@ void menu(int N1, int N2, int D1, int D2, char operador, int *num, int *den)
 
 int main()
 {
-  int N, N1, N2, D1, D2, menor, num, den;
+  int N, N1, N2, D1, D2, mdcr, num, den;
   int i = 0;
   char operador;
   scanf("%d", &N);
@@ -82,8 +82,11 @@ int main()
       if (N1 >= 1 && N1 <= 1000 && N2 >= 1 && N2 <= 1000 && D1 >= 1 && D1 <= 1000 && D2 >= 1 && D2 <= 1000)
       {
         menu(N1, N2, D1, D2, operador, &num, &den);
-        menor = maximoDivisorComum((num < 0 ? -num : num), den);
-        printf("%d / %d = %d / %d\n", num, den, num / menor, (!num ? 1 : den / menor));
+
+        mdcr = maximoDivisorComum(den, num);
+        if (mdcr <= 0)
+          mdcr = -1 * mdcr;
+        printf("%d / %d = %d / %d\n", den, num, den / mdcr, num / mdcr);
       }
       else
       {
