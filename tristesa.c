@@ -85,6 +85,8 @@ resultado inserir(resultado *p, int den, int num, int mdcr)
 void imprimir(resultado *p)
 {
   resultado *novo = p;
+  resultado *aux;
+  aux = (resultado *)malloc(sizeof(resultado));
   int num, den, mdcr;
   while (novo->prox != NULL)
   {
@@ -92,6 +94,15 @@ void imprimir(resultado *p)
     num = novo->num;
     den = novo->den;
     mdcr = novo->mdc;
+    inserir(aux, den, num, mdcr);
+  }
+  resultado *nova = aux;
+  while (nova->prox != NULL)
+  {
+    nova = nova->prox;
+    num = nova->num;
+    den = nova->den;
+    mdcr = nova->mdc;
     printf("%d/%d = %d/%d\n", num, den, num / mdcr, den / mdcr);
   }
 }
