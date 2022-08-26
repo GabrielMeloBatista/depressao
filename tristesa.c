@@ -84,16 +84,15 @@ resultado inserir(resultado *p, int den, int num, int mdcr)
 
 void imprimir(resultado *p)
 {
-  resultado *novo = p->prox;
-  printf("%d", novo->mdc);
+  resultado *novo = p;
   int num, den, mdcr;
   while (novo->prox != NULL)
   {
+    novo = novo->prox;
     num = novo->num;
     den = novo->den;
     mdcr = novo->mdc;
     printf("%d/%d = %d/%d\n", num, den, num / mdcr, den / mdcr);
-    novo = novo->prox;
   }
 }
 
