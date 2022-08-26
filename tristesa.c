@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 
+typedef struct lista
+{
+  int den;
+  int num;
+  int mdc;
+  struct lista *prox;
+} resultado;
+
 int maximoDivisorComum(int x, int y)
 {
   if (y == 0)
@@ -64,11 +72,39 @@ void menu(int N1, int N2, int D1, int D2, char operador, int *num, int *den)
   }
 }
 
+resultado inserir(resultado *p, int den, int num, int mdcr)
+{
+  resultado *nova = (resultado *)malloc(sizeof(resultado));
+  nova->prox = p->prox;
+  p->prox = nova;
+  nova->den = den;
+  nova->num = num;
+  nova->mdc = mdcr;
+}
+
+void imprimir(resultado *p)
+{
+  resultado *novo = p->prox;
+  printf("%d", novo->mdc);
+  int num, den, mdcr;
+  while (novo->prox != NULL)
+  {
+    num = novo->num;
+    den = novo->den;
+    mdcr = novo->mdc;
+    printf("%d/%d = %d/%d\n", num, den, num / mdcr, den / mdcr);
+    novo = novo->prox;
+  }
+}
+
 int main()
 {
   int N, N1, N2, D1, D2, mdcr, num, den;
   int i = 0;
   char operador;
+  resultado *resposta;
+  resposta = (resultado *)malloc(sizeof(resultado));
+
   scanf("%d", &N);
   if (N >= 1 && N <= 10000)
   {
@@ -86,7 +122,7 @@ int main()
         mdcr = maximoDivisorComum(den, num);
         if (mdcr <= 0)
           mdcr = -1 * mdcr;
-        printf("%d / %d = %d / %d\n", den, num, den / mdcr, num / mdcr);
+        inserir(resposta, den, num, mdcr);
       }
       else
       {
@@ -95,6 +131,7 @@ int main()
       i++;
     }
   }
+  imprimir(resposta);
 
   return 0;
 }
